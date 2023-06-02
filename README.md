@@ -1,29 +1,48 @@
-# Bizcard
-![image](https://github.com/balajeeycp2k/Bizcard/assets/112715562/5fe8c09b-0b33-468f-a168-52ef2391d819)
+# This is the project to Extracting Business Card Data with EasyOCR 
 
+### This project was done through google colab
 
-Introduction to Optical Character Recognition (OCR) with EasyOCR:
+# Installing required packages
+```python
+pip install streamlit
+pip install streamlit_option_menu
+pip install easyocr
+```
+# Installing the required libraries
+```python
+import easyocr
+import cv2
+import pandas as pd
+import re
+import sqlite3
+import base64
+import streamlit as st
+from streamlit_option_menu import option_menu
+```
+# Image processing 
+- read the image
+- resize the image 
+- converting color to gray scale image 
+- set threshold value brefore passing to OCR Engine
+```python
+img = cv2.imread(image)
+orig_img = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+rect,thresh_image = cv2.threshold(orig_img,70,255,cv2.THRESH_TOZERO)
+```
+# Extracting the data from image
+- extraxt the data from image using easyocr using following command
+```python
+reader = easyocr.Reader(['en'], gpu=False)
+res=reader.readtext(thresh_image,detail=0,paragraph=True)
+```
+# To store the data in to sql server
+- creating a table in sqlserver by connecting python with with sql database using sqlite3
+-  create string using result
+- retrive the the pericular entity like,phone no,email-id,address etc by using regular expressions
+```python
+emails = re.findall(r'[A-Za-z0-9\.\-+_]+@[A-Za-z0-9\.\-+_]+\.[a-z]+', text)
+```
+- convert the image to binary form by using base64 to store the image in sql server
+- store the retrieved data to table
 
-Explain what OCR is and its importance in extracting text from images.
-Introduce EasyOCR as a Python library for OCR tasks.
-Discuss the simplicity of implementing OCR using EasyOCR with minimal code.
-Exploring the Data Extraction Process from Business Cards:
-
-Describe the process of extracting data from business cards using the provided code.
-Explain the different steps involved, such as image processing, text extraction, and data parsing.
-Highlight the use of regular expressions to extract specific information like names, email addresses, phone numbers, etc.
-Storing Extracted Business Card Data in a SQLite Database:
-
-Discuss the use of SQLite as a lightweight and embedded database solution.
-Explain how the code establishes a connection to the SQLite database and creates a table to store the extracted data.
-Provide an overview of SQL queries used to insert data into the database table.
-Visualizing Extracted Business Card Data using Streamlit:
-
-Introduce Streamlit as a Python library for creating interactive web applications.
-Discuss how the code uses Streamlit to create a user interface for uploading business card images and visualizing the extracted data.
-Explain the use of Streamlit's layout options, menu bar, and different components like file uploader, buttons, and dataframes.
-Searching and Retrieving Business Card Data from the SQLite Database:
-
-Explain how the code allows users to search for specific data in the SQLite database.
-Discuss the functionality to search by different columns like company name, employee name, email address, etc.
-Provide examples of searching and retrieving data based on user input.
+# I hope this projects helps to store the business cards data  with the image
