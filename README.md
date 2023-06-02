@@ -1,5 +1,7 @@
 # Bizcard
 ![image](https://github.com/balajeeycp2k/Bizcard/assets/112715562/5fe8c09b-0b33-468f-a168-52ef2391d819)
+
+
 Introduction to Optical Character Recognition (OCR) with EasyOCR:
 
 Explain what OCR is and its importance in extracting text from images.
