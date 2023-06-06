@@ -35,14 +35,6 @@ rect,thresh_image = cv2.threshold(orig_img,70,255,cv2.THRESH_TOZERO)
 reader = easyocr.Reader(['en'], gpu=False)
 res=reader.readtext(thresh_image,detail=0,paragraph=True)
 ```
-# To store the data in to sql server
-- creating a table in sqlserver by connecting python with with sql database using sqlite3
--  create string using result
-- retrive the the pericular entity like,phone no,email-id,address etc by using regular expressions
-```python
-emails = re.findall(r'[A-Za-z0-9\.\-+_]+@[A-Za-z0-9\.\-+_]+\.[a-z]+', text)
-```
-- convert the image to binary form by using base64 to store the image in sql server
-- store the retrieved data to table
+
 
 # I hope this projects helps to store the business cards data  with the image
